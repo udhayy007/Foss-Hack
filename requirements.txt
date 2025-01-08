@@ -1,18 +1,17 @@
 streamlit==1.31.0
 streamlit-option-menu==0.3.2
 python-docx==0.8.11
-pandas==1.5.3  # Ensure compatibility with Python 3.7-3.10
+pandas==1.5.3
 plotly==5.13.1
 pillow==10.2.0
 python-dotenv==1.0.0
 pdfminer.six==20221105
 nltk==3.8.1
-scikit-learn==1.2.2  # Ensure compatibility with pandas and Python version
-sqlalchemy==1.4.50  # Ensure compatibility with other libraries
+scikit-learn==1.2.2
+sqlalchemy==1.4.50
 openpyxl==3.1.2
 streamlit-lottie==0.0.5
 requests==2.31.0
 PyPDF2==3.0.1
-spacy==3.5.0  # Downgrade to match en-core-web-sm
-thinc<8.2.0  # Ensure compatibility with spacy==3.5.0
-en-core-web-sm @ https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.5.0/en_core_web_sm-3.5.0-py3-none-any.wh
+spacy==3.5.0
+# Note: en-core-web-sm will be installed separately during the setup process
