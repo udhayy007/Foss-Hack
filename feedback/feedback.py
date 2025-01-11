@@ -75,197 +75,191 @@ class FeedbackManager:
         """Render the feedback form"""
         st.markdown("""
             <style>
+            @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+            
             .feedback-container {
-                background-color: rgba(255, 255, 255, 0.05);
-                padding: 20px;
-                border-radius: 10px;
-                margin: 10px 0;
+                background: rgba(255, 255, 255, 0.05);
+                backdrop-filter: blur(10px);
+                padding: 30px;
+                border-radius: 20px;
+                margin: 20px 0;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             }
+            
             .feedback-header {
                 color: #E0E0E0;
-                font-size: 1.2em;
-                margin-bottom: 20px;
+                font-size: 1.5em;
+                font-weight: 600;
+                margin-bottom: 25px;
                 text-align: center;
-                padding: 10px;
-                background: linear-gradient(90deg, #4CAF50, #2196F3);
-                border-radius: 5px;
-            }
-            .feedback-section {
-                margin: 15px 0;
                 padding: 15px;
-                border-radius: 8px;
+                background: linear-gradient(135deg, #4CAF50, #2196F3);
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2);
+            }
+            
+            .feedback-section {
+                margin: 20px 0;
+                padding: 20px;
+                border-radius: 15px;
                 background: rgba(255, 255, 255, 0.03);
                 border: 1px solid rgba(255, 255, 255, 0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
             }
+            
+            .feedback-section:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            }
+            
             .feedback-label {
                 color: #E0E0E0;
-                font-size: 0.9em;
-                margin-bottom: 5px;
+                font-size: 1.1em;
+                font-weight: 500;
+                margin-bottom: 10px;
             }
-            .feedback-input {
-                background: rgba(255, 255, 255, 0.05);
-                border-radius: 5px;
-                padding: 10px;
-                margin-top: 5px;
-            }
-            .feedback-submit {
-                background: linear-gradient(90deg, #4CAF50, #2196F3);
-                color: white;
-                border: none;
-                padding: 10px 20px;
-                border-radius: 5px;
+            
+            .star-rating {
+                font-size: 24px;
+                color: #FFD700;
                 cursor: pointer;
+                transition: transform 0.2s ease;
+            }
+            
+            .star-rating:hover {
+                transform: scale(1.1);
+            }
+            
+            .rating-container {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin: 15px 0;
+            }
+            
+            .submit-button {
+                background: linear-gradient(135deg, #4CAF50, #2196F3);
+                color: white;
+                padding: 12px 25px;
+                border: none;
+                border-radius: 8px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                text-transform: uppercase;
+                letter-spacing: 1px;
                 width: 100%;
                 margin-top: 20px;
             }
-            .feedback-emoji {
-                font-size: 1.5em;
-                margin-right: 10px;
+            
+            .submit-button:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
             }
-            .stTextInput>div>div>input {
-                background-color: rgba(255, 255, 255, 0.05);
-                color: #E0E0E0;
+            
+            .textarea-container {
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 8px;
+                padding: 10px;
+                margin-top: 10px;
             }
-            .stTextArea>div>div>textarea {
-                background-color: rgba(255, 255, 255, 0.05);
+            
+            .textarea-container textarea {
+                width: 100%;
+                min-height: 100px;
+                background: transparent;
+                border: none;
                 color: #E0E0E0;
+                font-size: 1em;
+                resize: vertical;
             }
             </style>
-        """, unsafe_allow_html=True)
+            """, unsafe_allow_html=True)
 
-        st.markdown('<div class="feedback-header">📝 Share Your Feedback</div>', unsafe_allow_html=True)
+        st.markdown('<div class="feedback-container">', unsafe_allow_html=True)
+        st.markdown('<h2 class="feedback-header">📝 Share Your Feedback</h2>', unsafe_allow_html=True)
 
-        with st.form("feedback_form", clear_on_submit=True):
-            # Rating Section
-            st.markdown('<div class="feedback-section">', unsafe_allow_html=True)
-            st.markdown('<div class="feedback-label">⭐ Overall Rating</div>', unsafe_allow_html=True)
+        # Overall Rating
+        st.markdown('<div class="feedback-section">', unsafe_allow_html=True)
+        st.markdown('<label class="feedback-label">Overall Experience Rating</label>', unsafe_allow_html=True)
+        rating = st.slider("", 1, 5, 5, help="Rate your overall experience with the app")
+        st.markdown(f'<div class="rating-container">{"⭐" * rating}</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        # Usability Score
+        st.markdown('<div class="feedback-section">', unsafe_allow_html=True)
+        st.markdown('<label class="feedback-label">How easy was it to use our app?</label>', unsafe_allow_html=True)
+        usability_score = st.slider("", 1, 5, 5, help="Rate the app's ease of use")
+        st.markdown(f'<div class="rating-container">{"⭐" * usability_score}</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        # Feature Satisfaction
+        st.markdown('<div class="feedback-section">', unsafe_allow_html=True)
+        st.markdown('<label class="feedback-label">How satisfied are you with our features?</label>', unsafe_allow_html=True)
+        feature_satisfaction = st.slider("", 1, 5, 5, help="Rate your satisfaction with the app's features")
+        st.markdown(f'<div class="rating-container">{"⭐" * feature_satisfaction}</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        # Text Feedback
+        st.markdown('<div class="feedback-section">', unsafe_allow_html=True)
+        st.markdown('<label class="feedback-label">What features would you like to see added?</label>', unsafe_allow_html=True)
+        missing_features = st.text_area("", placeholder="Share your feature requests...")
+
+        st.markdown('<label class="feedback-label">How can we improve?</label>', unsafe_allow_html=True)
+        improvement_suggestions = st.text_area("", placeholder="Your suggestions for improvement...")
+
+        st.markdown('<label class="feedback-label">Tell us about your experience</label>', unsafe_allow_html=True)
+        user_experience = st.text_area("", placeholder="Share your experience with us...")
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        # Submit Button
+        if st.button("Submit Feedback", key="submit_feedback"):
+            # Create progress bar
+            progress_bar = st.progress(0)
+            status_text = st.empty()
             
-            # Create star rating with slider
-            rating = st.slider("", min_value=1, max_value=5, value=3, key="rating_slider")
-            
-            # Display stars based on rating
-            col1, col2, col3 = st.columns([1, 3, 1])
-            with col2:
-                st.markdown(
-                    f'<div style="text-align: center; font-size: 24px; margin-top: -10px;">'
-                    f'{"⭐" * rating}'
-                    f'</div>',
-                    unsafe_allow_html=True
-                )
-            
-            st.markdown('</div>', unsafe_allow_html=True)
-            
-            # Usability Section
-            st.markdown('<div class="feedback-section">', unsafe_allow_html=True)
-            st.markdown('<div class="feedback-label">🎯 Usability Score</div>', unsafe_allow_html=True)
-            usability_options = {
-                "Very Poor": "💔",
-                "Poor": "😟",
-                "Average": "😐",
-                "Good": "👍",
-                "Excellent": "🎉"
+            # Simulate processing with animation
+            for i in range(100):
+                progress_bar.progress(i + 1)
+                if i < 30:
+                    status_text.text("Processing feedback... 📝")
+                elif i < 60:
+                    status_text.text("Analyzing responses... 🔍")
+                elif i < 90:
+                    status_text.text("Saving to database... 💾")
+                else:
+                    status_text.text("Finalizing... ✨")
+                time.sleep(0.01)
+
+            # Save feedback
+            feedback_data = {
+                'rating': rating,
+                'usability_score': usability_score,
+                'feature_satisfaction': feature_satisfaction,
+                'missing_features': missing_features,
+                'improvement_suggestions': improvement_suggestions,
+                'user_experience': user_experience
             }
-            usability = st.select_slider(
-                "",
-                options=list(usability_options.keys()),
-                value="Average",
-                format_func=lambda x: f"{usability_options[x]} {x}",
-                key="usability_slider",
-                help="How easy was it to use our application?"
-            )
-            st.markdown('</div>', unsafe_allow_html=True)
+            self.save_feedback(feedback_data)
             
-            # Feature Satisfaction
-            st.markdown('<div class="feedback-section">', unsafe_allow_html=True)
-            st.markdown('<div class="feedback-label">✨ Feature Satisfaction</div>', unsafe_allow_html=True)
-            satisfaction_options = {
-                "Very Dissatisfied": "😢",
-                "Dissatisfied": "😕",
-                "Neutral": "😐",
-                "Satisfied": "😊",
-                "Very Satisfied": "😍"
-            }
-            satisfaction = st.select_slider(
-                "",
-                options=list(satisfaction_options.keys()),
-                value="Neutral",
-                format_func=lambda x: f"{satisfaction_options[x]} {x}",
-                key="satisfaction_slider"
-            )
-            st.markdown('</div>', unsafe_allow_html=True)
+            # Clear progress elements
+            progress_bar.empty()
+            status_text.empty()
             
-            # Features and Improvements
-            col1, col2 = st.columns(2)
-            with col1:
-                st.markdown('<div class="feedback-section">', unsafe_allow_html=True)
-                st.markdown('<div class="feedback-label">💡 Missing Features</div>', unsafe_allow_html=True)
-                missing_features = st.text_area("", placeholder="What features would you like to see?",
-                                             help="Tell us what features you think are missing")
-                st.markdown('</div>', unsafe_allow_html=True)
+            # Show success message with animation
+            success_container = st.empty()
+            success_container.markdown("""
+                <div style="text-align: center; padding: 20px; background: linear-gradient(90deg, rgba(76, 175, 80, 0.1), rgba(33, 150, 243, 0.1)); border-radius: 10px;">
+                    <h2 style="color: #4CAF50;">Thank You! 🎉</h2>
+                    <p style="color: #E0E0E0;">Your feedback helps us improve Smart Resume AI</p>
+                </div>
+            """, unsafe_allow_html=True)
             
-            with col2:
-                st.markdown('<div class="feedback-section">', unsafe_allow_html=True)
-                st.markdown('<div class="feedback-label">🔄 Suggestions</div>', unsafe_allow_html=True)
-                improvements = st.text_area("", placeholder="How can we improve?",
-                                        help="Share your suggestions for improvement")
-                st.markdown('</div>', unsafe_allow_html=True)
-            
-            # User Experience
-            st.markdown('<div class="feedback-section">', unsafe_allow_html=True)
-            st.markdown('<div class="feedback-label">💭 Your Experience</div>', unsafe_allow_html=True)
-            experience = st.text_area("", placeholder="Tell us about your experience...",
-                                   help="Share your thoughts about using our application")
-            st.markdown('</div>', unsafe_allow_html=True)
-
-            submitted = st.form_submit_button("Submit Feedback 🚀", 
-                                           help="Click to submit your feedback",
-                                           use_container_width=True)
-
-            if submitted:
-                # Create progress bar
-                progress_bar = st.progress(0)
-                status_text = st.empty()
-                
-                # Simulate processing with animation
-                for i in range(100):
-                    progress_bar.progress(i + 1)
-                    if i < 30:
-                        status_text.text("Processing feedback... 📝")
-                    elif i < 60:
-                        status_text.text("Analyzing responses... 🔍")
-                    elif i < 90:
-                        status_text.text("Saving to database... 💾")
-                    else:
-                        status_text.text("Finalizing... ✨")
-                    time.sleep(0.01)
-
-                # Save feedback
-                feedback_data = {
-                    'rating': rating,
-                    'usability_score': list(usability_options.keys()).index(usability) + 1,
-                    'feature_satisfaction': list(satisfaction_options.keys()).index(satisfaction) + 1,
-                    'missing_features': missing_features,
-                    'improvement_suggestions': improvements,
-                    'user_experience': experience
-                }
-                self.save_feedback(feedback_data)
-                
-                # Clear progress elements
-                progress_bar.empty()
-                status_text.empty()
-                
-                # Show success message with animation
-                success_container = st.empty()
-                success_container.markdown("""
-                    <div style="text-align: center; padding: 20px; background: linear-gradient(90deg, rgba(76, 175, 80, 0.1), rgba(33, 150, 243, 0.1)); border-radius: 10px;">
-                        <h2 style="color: #4CAF50;">Thank You! 🎉</h2>
-                        <p style="color: #E0E0E0;">Your feedback helps us improve Smart Resume AI</p>
-                    </div>
-                """, unsafe_allow_html=True)
-                
-                st.balloons()
-                time.sleep(3)  # Keep success message visible for 3 seconds
-                success_container.empty()  # Clear success message
+            st.balloons()
+            time.sleep(3)  # Keep success message visible for 3 seconds
+            success_container.empty()  # Clear success message
 
     def render_feedback_stats(self):
         """Render feedback statistics"""

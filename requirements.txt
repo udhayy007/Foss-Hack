@@ -12,6 +12,5 @@ sqlalchemy
 openpyxl
 streamlit-lottie
 requests
-PyPDF
 spacy
 PyPDF2

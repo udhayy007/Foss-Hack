@@ -1188,9 +1188,7 @@ class ResumeApp:
                 if analysis.get('document_type') != 'resume':
                     st.error(f"⚠️ This appears to be a {analysis['document_type']} document, not a resume!")
                     st.warning("Please upload a proper resume for ATS analysis.")
-                    return
-
-                
+                    return                
                 # Display results in a modern card layout
                 col1, col2 = st.columns(2)
                 
@@ -1225,7 +1223,7 @@ class ResumeApp:
                                     font-weight: bold;
                                     color: {color};
                                 ">
-                                    {score}%
+                                    {score}
                                 </div>
                             </div>
                         </div>
@@ -1245,14 +1243,16 @@ class ResumeApp:
                     ), unsafe_allow_html=True)
                     
                     st.markdown("</div>", unsafe_allow_html=True)
-                    
+                                        
+                    # self.display_analysis_results(analysis_results)
+
                     # Skills Match Card
                     st.markdown("""
                     <div class="feature-card">
                         <h2>Skills Match</h2>
                     """, unsafe_allow_html=True)
                     
-                    st.metric("Keyword Match", f"{analysis['keyword_match']['score']}%")
+                    st.metric("Keyword Match", f"{int(analysis.get('keyword_match', {}).get('score', 0))}%")
                     
                     if analysis['keyword_match']['missing_skills']:
                         st.markdown("#### Missing Skills:")
@@ -1268,8 +1268,8 @@ class ResumeApp:
                         <h2>Format Analysis</h2>
                     """, unsafe_allow_html=True)
                     
-                    st.metric("Format Score", f"{analysis['format_score']}%")
-                    st.metric("Section Score", f"{analysis['section_score']}%")
+                    st.metric("Format Score", f"{int(analysis.get('format_score', 0))}%")
+                    st.metric("Section Score", f"{int(analysis.get('section_score', 0))}%")
                     
                     st.markdown("</div>", unsafe_allow_html=True)
                     
@@ -1350,6 +1350,8 @@ class ResumeApp:
                         st.markdown("</ul></div>", unsafe_allow_html=True)
                     
                     st.markdown("</div>", unsafe_allow_html=True)
+                
+
                 
                 # Course Recommendations
                 st.markdown("""
