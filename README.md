@@ -205,6 +205,29 @@ Follow these steps to run Smart Resume AI:
    ```
 
 
+
+## Known Bug 🚨 Autofill Glitch!  
+
+### What's Happening? 🤔  
+If you're using **Chrome's Autofill** feature to quickly fill out your **Name**, **Email**, and **Phone** details in our smart AI resume analyzer, you might encounter this error:  
+**"⚠️ Please enter your email address."**  
+
+Even though the email field is filled, our system sometimes doesn’t recognize it properly due to how Chrome's autofill interacts with the input fields.
+
+### Quick Fix 🛠️  
+Don’t worry—it’s a simple fix!  
+1. **Edit the email field manually:**  
+   - Remove one character or number.  
+   - Type it back in.  
+2. Voilà! The error will disappear, and you can generate your resume smoothly.  
+> _(“Voilà” means "there you have it!" or "problem solved!")_
+
+
+### Why Does This Happen? 🌐  
+This issue occurs because Chrome's autofill doesn’t always trigger the necessary validation for the input fields. By manually editing the email, you’re letting the system recognize the input properly.  
+
+We’re working on ironing out this glitch to make your experience flawless. Thank you for your patience! 🙏  
+
 ## 🎯 **Why Choose Smart Resume AI?**  
 
 ✨ **Tailored for You**  
