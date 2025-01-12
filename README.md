@@ -204,29 +204,27 @@ Follow these steps to run Smart Resume AI:
    streamlit run app.py
    ```
 
-
-
-## Known Bug 🚨 Autofill Glitch!  
+## Known Bug 🚨 Autofill Glitch in Resume Builder!  
 
 ### What's Happening? 🤔  
-If you're using **Chrome's Autofill** feature to quickly fill out your **Name**, **Email**, and **Phone** details in our smart AI resume analyzer, you might encounter this error:  
+If you're using the **Browser's (e.g., Chrome, Edge, etc.) Autofill** feature to quickly fill out your **Name**, **Email**, and **Phone** details in our **Smart AI Resume Analyzer**, you might encounter this error in generating Resume:  
 **"⚠️ Please enter your email address."**  
 
-Even though the email field is filled, our system sometimes doesn’t recognize it properly due to how Chrome's autofill interacts with the input fields.
+Even though the email field appears to be filled, this is a small bug in the **Resume Builder Feature** where our system doesn’t always recognize inputs from autofill.
 
 ### Quick Fix 🛠️  
 Don’t worry—it’s a simple fix!  
-1. **Edit the email field manually:**  
+1. **Edit the email(or Any) field manually:**  
    - Remove one character or number.  
    - Type it back in.  
 2. Voilà! The error will disappear, and you can generate your resume smoothly.  
 > _(“Voilà” means "there you have it!" or "problem solved!")_
 
-
 ### Why Does This Happen? 🌐  
-This issue occurs because Chrome's autofill doesn’t always trigger the necessary validation for the input fields. By manually editing the email, you’re letting the system recognize the input properly.  
+This is a **known issue with the resume builder feature**, where the autofill behavior of browsers (e.g., Chrome, Edge, etc.) doesn’t trigger the necessary validation for some input fields. By manually editing the email, the system recognizes it correctly.  
 
-We’re working on ironing out this glitch to make your experience flawless. Thank you for your patience! 🙏  
+We’re actively working on a permanent fix to ensure your experience is seamless. Thank you for your understanding and support! 🙏  
+
 
 ## 🎯 **Why Choose Smart Resume AI?**  
 
