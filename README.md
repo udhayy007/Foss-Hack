@@ -174,7 +174,7 @@ Follow these steps to run Smart Resume AI:
 
    ```bash
    git clone https://github.com/Hunterdii/resume-analyzer-ai.git
-   cd smart-resume-ai
+   cd Smart-AI-Resume-Analyzer
    ```
 
 2. **Create a virtual environment:**
