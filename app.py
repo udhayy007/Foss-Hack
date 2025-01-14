@@ -41,6 +41,63 @@ from datetime import datetime
 from jobs.job_search import render_job_search
 from PIL import Image
 
+from sessions.session_handler import init_db, create_and_save_session
+from datetime import datetime
+
+# Initialize the database
+init_db()
+
+# Automatically create and store a new session ID
+if "session_id" not in st.session_state:
+    session_id, latitude, longitude, city, state, pincode = create_and_save_session()
+    st.session_state.session_id = session_id
+    st.session_state.latitude = latitude
+    st.session_state.longitude = longitude
+    st.session_state.city = city
+    st.session_state.state = state
+    st.session_state.pincode = pincode
+
+# Truncate the session ID to display only few characters
+truncated_session_id = st.session_state.session_id[:8]
+
+# Combine city and state into one line
+location_info = f"{st.session_state.city}, {st.session_state.state}"
+
+# Get the current date and time separately
+current_datetime = datetime.now()
+current_date = current_datetime.strftime("%Y-%m-%d")
+current_time = current_datetime.strftime("%H:%M:%S")
+
+# Custom CSS for the card
+card_css = """
+<style>
+.sidebar-card {
+    background-color: #008db9; /* Blue background */
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    color: white;
+    font-family: 'Arial', sans-serif;
+    margin-bottom: 20px;
+}
+.sidebar-card h4 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #ffffff;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    padding-bottom: 10px;
+}
+.sidebar-card p {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #ffffff;
+    text-align: center;
+}
+</style>
+"""
+
+
 class ResumeApp:
     def __init__(self):
         """Initialize the application"""
@@ -1510,6 +1567,21 @@ class ResumeApp:
             st.markdown("<br><br>", unsafe_allow_html=True)
             st.markdown("---")
             
+            # Add the card to the sidebar
+            st.sidebar.markdown(card_css, unsafe_allow_html=True)
+            st.sidebar.markdown(
+                f"""
+                <div class="sidebar-card">
+                    <h4>🌐 Session Info</h4>
+                    <p><strong>🆔Session ID:</strong>🔒 {truncated_session_id}...</p>
+                    <p><strong>📍Location:</strong>🗺️ {location_info}</p>  
+                    <p><strong>📅Date:</strong>📆 {current_date}</p>
+                    <p><strong>⏰Time:</strong>🕒 {current_time}</p>
+                </div>    
+                """,
+                unsafe_allow_html=True
+            )
+
             # Admin Login/Logout section at bottom
             if st.session_state.get('is_admin', False):
                 st.success(f"Logged in as: {st.session_state.get('current_admin_email')}")

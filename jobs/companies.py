@@ -44,14 +44,11 @@ FEATURED_COMPANIES = {
         },
         {
             "name": "Netflix",
-            "icon": "fab fa-netflix",
+            "icon": "fas fa-play-circle",
             "color": "#E50914",
             "careers_url": "https://explore.jobs.netflix.net/careers",
             "description": "Streaming media company",
-            "categories": ["Software", "Marketing", "Design", "Service"],
-            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/1920px-Netflix_2015_logo.svg.png",
-            "website": "https://jobs.netflix.com/",
-            "industry": "Entertainment & Technology"
+            "categories": ["Software", "Marketing", "Design", "Service"]
         }
     ],
     "indian_tech": [
@@ -91,14 +88,11 @@ FEATURED_COMPANIES = {
     "global_corps": [
         {
             "name": "IBM",
-            "icon": "fab fa-ibm",
+            "icon": "fas fa-server",
             "color": "#1F70C1",
             "careers_url": "https://www.ibm.com/careers",
             "description": "Global leader in technology and consulting",
-            "categories": ["Software", "Consulting", "AI/ML", "Cloud"],
-            "logo_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/IBM_logo.svg/1920px-IBM_logo.svg.png",
-            "website": "https://www.ibm.com/careers/",
-            "industry": "Technology & Consulting"
+            "categories": ["Software", "Consulting", "AI/ML", "Cloud"]
         },
         {
             "name": "Accenture",
