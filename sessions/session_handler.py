@@ -5,6 +5,7 @@ import geocoder
 from geopy.geocoders import Nominatim
 import logging
 import requests
+import pytz
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -19,32 +20,44 @@ FALLBACK_LOCATION = {
     'pincode': 'Unknown'
 }
 
+def get_current_time():
+    """
+    Get the current time in UTC to ensure consistency across deployments
+    """
+    return datetime.utcnow()
+
 def get_location_with_fallback():
     """
     Attempt to get location with multiple fallback strategies
     """
-    # Strategy 1: Use geocoder
-    try:
-        g = geocoder.ip('me')
-        if g.latlng:
-            latitude, longitude = g.latlng
-            return latitude, longitude
-    except Exception as e:
-        logger.warning(f"Geocoder IP location failed: {e}")
-
-    # Strategy 2: Use ipinfo.io
+    # Strategy 1: Use ipinfo.io (more reliable for cloud deployments)
     try:
         response = requests.get('https://ipinfo.io/json', timeout=5)
         data = response.json()
         loc = data.get('loc', '').split(',')
+        city = data.get('city', 'Unknown')
+        region = data.get('region', 'Unknown')
+        
         if len(loc) == 2:
-            return float(loc[0]), float(loc[1])
+            return float(loc[0]), float(loc[1]), city, region
     except Exception as e:
         logger.warning(f"IPInfo location retrieval failed: {e}")
 
+    # Strategy 2: Use geocoder
+    try:
+        g = geocoder.ip('me')
+        if g.latlng:
+            latitude, longitude = g.latlng
+            return latitude, longitude, 'Unknown', 'Unknown'
+    except Exception as e:
+        logger.warning(f"Geocoder IP location failed: {e}")
+
     # Strategy 3: Return fallback location
     logger.error("All location retrieval methods failed. Using fallback location.")
-    return FALLBACK_LOCATION['latitude'], FALLBACK_LOCATION['longitude']
+    return (FALLBACK_LOCATION['latitude'], 
+            FALLBACK_LOCATION['longitude'], 
+            FALLBACK_LOCATION['city'], 
+            FALLBACK_LOCATION['state'])
 
 def get_location_details(latitude, longitude):
     """
@@ -88,13 +101,21 @@ def init_db():
 # Generate a new session ID and save it to the database
 def create_and_save_session():
     session_id = str(uuid.uuid4())
-    timestamp = datetime.now()
+    
+    # Use UTC time
+    timestamp = get_current_time()
 
     # Get location with fallback
-    latitude, longitude = get_location_with_fallback()
+    latitude, longitude, fallback_city, fallback_state = get_location_with_fallback()
     
     # Get location details with fallback
     city, state, pincode = get_location_details(latitude, longitude)
+    
+    # Use fallback city and state if retrieved details are unknown
+    if city == "Unknown":
+        city = fallback_city
+    if state == "Unknown":
+        state = fallback_state
 
     # Save the session data to the database
     try:

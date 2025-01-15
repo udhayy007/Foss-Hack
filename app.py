@@ -2,6 +2,7 @@
 Smart Resume AI - Main Application
 """
 import streamlit as st
+import pytz
 
 # Set page config at the very beginning
 st.set_page_config(
@@ -57,16 +58,58 @@ if "session_id" not in st.session_state:
     st.session_state.state = state
     st.session_state.pincode = pincode
 
+def get_session_info():
+    """
+    Retrieve and format session information
+    """
+    try:
+        # Create a new session
+        session_id, latitude, longitude, city, state, pincode = create_and_save_session()
+        
+        # Truncate session ID for display
+        truncated_session_id = session_id[:8]
+        
+        # Format location information
+        location_info = f"{city}, {state}" if city != "Unknown" and state != "Unknown" else "Unknown Location"
+        
+        # Get current date and time in local timezone
+        local_tz = pytz.timezone('Asia/Kolkata')  # Set to your preferred timezone
+        current_time_utc = datetime.utcnow()
+        current_time_local = current_time_utc.replace(tzinfo=pytz.utc).astimezone(local_tz)
+        
+        current_date = current_time_local.strftime("%Y-%m-%d")
+        current_time = current_time_local.strftime("%H:%M:%S")
+        
+        return {
+            'session_id': truncated_session_id,
+            'location_info': location_info,
+            'current_date': current_date,
+            'current_time': current_time
+        }
+    except Exception as e:
+        print(f"Error retrieving session info: {e}")
+        
+        # Fallback to local time if session creation fails
+        current_time_local = datetime.now()
+        return {
+            'session_id': 'Unknown',
+            'location_info': 'Unknown Location',
+            'current_date': current_time_local.strftime("%Y-%m-%d"),
+            'current_time': current_time_local.strftime("%H:%M:%S")
+        }
+
+# Retrieve session info
+session_info = get_session_info()
+
 # Truncate the session ID to display only few characters
-truncated_session_id = st.session_state.session_id[:8]
+truncated_session_id = session_info['session_id']
 
 # Combine city and state into one line
-location_info = f"{st.session_state.city}, {st.session_state.state}"
+location_info = session_info['location_info']
 
 # Get the current date and time separately
-current_datetime = datetime.now()
-current_date = current_datetime.strftime("%Y-%m-%d")
-current_time = current_datetime.strftime("%H:%M:%S")
+current_date = session_info['current_date']
+current_time = session_info['current_time']
 
 # Custom CSS for the card
 card_css = """
@@ -81,7 +124,7 @@ card_css = """
     margin-bottom: 20px;
 }
 .sidebar-card h4 {
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 15px;
     color: #ffffff;
     text-align: center;
@@ -90,7 +133,7 @@ card_css = """
 }
 .sidebar-card p {
     margin: 10px 0;
-    font-size: 15px;
+    font-size: 14px;
     color: #ffffff;
     text-align: center;
 }
@@ -1587,7 +1630,7 @@ class ResumeApp:
                 f"""
                 <div class="sidebar-card">
                     <h4>🌐 Session Info</h4>
-                    <p><strong>🆔Session ID :</strong>🔒 {truncated_session_id}...</p>
+                    <p><strong>🆔Session ID :</strong>🔒 {truncated_session_id}</p>
                     <p><strong>📍Location :</strong>🗺️ {location_info}</p>  
                     <p><strong>📅Date :</strong>📆 {current_date}</p>
                     <p><strong>⏰Time :</strong>🕒 {current_time}</p>
