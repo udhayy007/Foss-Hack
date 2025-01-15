@@ -4,10 +4,68 @@ from datetime import datetime
 import geocoder
 from geopy.geocoders import Nominatim
 import logging
+import requests
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+
+# Fallback location (can be replaced with a default location of your choice)
+FALLBACK_LOCATION = {
+    'latitude': 0.0,
+    'longitude': 0.0,
+    'city': 'Unknown',
+    'state': 'Unknown',
+    'pincode': 'Unknown'
+}
+
+def get_location_with_fallback():
+    """
+    Attempt to get location with multiple fallback strategies
+    """
+    # Strategy 1: Use geocoder
+    try:
+        g = geocoder.ip('me')
+        if g.latlng:
+            latitude, longitude = g.latlng
+            return latitude, longitude
+    except Exception as e:
+        logger.warning(f"Geocoder IP location failed: {e}")
+
+    # Strategy 2: Use ipinfo.io
+    try:
+        response = requests.get('https://ipinfo.io/json', timeout=5)
+        data = response.json()
+        loc = data.get('loc', '').split(',')
+        if len(loc) == 2:
+            return float(loc[0]), float(loc[1])
+    except Exception as e:
+        logger.warning(f"IPInfo location retrieval failed: {e}")
+
+    # Strategy 3: Return fallback location
+    logger.error("All location retrieval methods failed. Using fallback location.")
+    return FALLBACK_LOCATION['latitude'], FALLBACK_LOCATION['longitude']
+
+def get_location_details(latitude, longitude):
+    """
+    Attempt to get location details with multiple fallback strategies
+    """
+    city = state = pincode = "Unknown"
+
+    # Strategy 1: Use Nominatim
+    try:
+        geolocator = Nominatim(user_agent="resume_analyzer")
+        location = geolocator.reverse(f"{latitude},{longitude}", language="en", timeout=5)
+        
+        if location:
+            address_details = location.raw.get("address", {})
+            city = address_details.get("city", address_details.get("town", address_details.get("village", city)))
+            state = address_details.get("state", state)
+            pincode = address_details.get("postcode", pincode)
+    except Exception as geo_error:
+        logger.warning(f"Geocoding failed: {geo_error}")
+
+    return city, state, pincode
 
 # Initialize the database
 def init_db():
@@ -32,37 +90,11 @@ def create_and_save_session():
     session_id = str(uuid.uuid4())
     timestamp = datetime.now()
 
-    # Initialize default values
-    latitude = None
-    longitude = None
-    city = "Unknown City"
-    state = "Unknown State"
-    pincode = "Unknown Pincode"
-
-    try:
-        # Get the user's location
-        g = geocoder.ip('me')
-        latlong = g.latlng
-
-        if latlong:
-            latitude, longitude = latlong
-            
-            try:
-                # Use geopy to get the address with a timeout
-                geolocator = Nominatim(user_agent="resume_analyzer")
-                location = geolocator.reverse(latlong, language="en", timeout=5)
-                
-                if location:
-                    address_details = location.raw.get("address", {})
-                    city = address_details.get("city", address_details.get("town", address_details.get("village", "Unknown City")))
-                    state = address_details.get("state", "Unknown State")
-                    pincode = address_details.get("postcode", "Unknown Pincode")
-            
-            except Exception as geo_error:
-                logger.warning(f"Geocoding failed: {geo_error}. Using default location details.")
+    # Get location with fallback
+    latitude, longitude = get_location_with_fallback()
     
-    except Exception as location_error:
-        logger.error(f"Could not retrieve location: {location_error}")
+    # Get location details with fallback
+    city, state, pincode = get_location_details(latitude, longitude)
 
     # Save the session data to the database
     try:

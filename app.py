@@ -1550,6 +1550,20 @@ class ResumeApp:
         """Main application entry point"""
         self.apply_global_styles()
         
+        # Suppress specific warnings
+        import warnings
+        warnings.filterwarnings("ignore", category=SyntaxWarning)
+        warnings.filterwarnings("ignore", message="invalid escape sequence")
+        
+        # Monkey patch the problematic regular expression in the geocoder.uscensus module
+        import geocoder.uscensus
+        def safe_search(address):
+            """Safe version of re.search that uses a raw string"""
+            return re.search(r'^\d+', address, re.UNICODE)
+        
+        # Replace the original search method with our safe version
+        geocoder.uscensus.re = type('SafeRe', (), {'search': safe_search})
+
         # Admin login/logout in sidebar
         with st.sidebar:
             st_lottie(self.load_lottie_url("https://assets5.lottiefiles.com/packages/lf20_xyadoh9h.json"), height=200, key="sidebar_animation")
