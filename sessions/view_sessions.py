@@ -1,27 +1,3 @@
-# import sqlite3
-
-# def view_sessions():
-#     # Connect to the SQLite database
-#     conn = sqlite3.connect("session_data.db")
-#     cursor = conn.cursor()
-
-#     # Query to get all session data
-#     cursor.execute("SELECT * FROM sessions")
-#     sessions = cursor.fetchall()
-
-#     # Print session data
-#     if sessions:
-#         print("Session Data:")
-#         for session in sessions:
-#             print(f"Session ID: {session[0]}, Timestamp: {session[1]}")
-#     else:
-#         print("No session data available.")
-
-#     # Close the database connection
-#     conn.close()
-
-# if __name__ == "__main__":
-#     view_sessions()
 
 import sqlite3
 

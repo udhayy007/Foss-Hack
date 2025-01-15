@@ -90,7 +90,7 @@ card_css = """
 }
 .sidebar-card p {
     margin: 10px 0;
-    font-size: 16px;
+    font-size: 15px;
     color: #ffffff;
     text-align: center;
 }
@@ -1573,10 +1573,10 @@ class ResumeApp:
                 f"""
                 <div class="sidebar-card">
                     <h4>🌐 Session Info</h4>
-                    <p><strong>🆔Session ID:</strong>🔒 {truncated_session_id}...</p>
-                    <p><strong>📍Location:</strong>🗺️ {location_info}</p>  
-                    <p><strong>📅Date:</strong>📆 {current_date}</p>
-                    <p><strong>⏰Time:</strong>🕒 {current_time}</p>
+                    <p><strong>🆔Session ID :</strong>🔒 {truncated_session_id}...</p>
+                    <p><strong>📍Location :</strong>🗺️ {location_info}</p>  
+                    <p><strong>📅Date :</strong>📆 {current_date}</p>
+                    <p><strong>⏰Time :</strong>🕒 {current_time}</p>
                 </div>    
                 """,
                 unsafe_allow_html=True
