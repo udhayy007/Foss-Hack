@@ -44,7 +44,7 @@
 </table>
 
   <h4>
-    <a href="https://skillmatch-ai.streamlit.app/">View Demo</a>
+    <a href="https://resumind.streamlit.app/">View Demo</a>
     <span> · </span>
     <a href="#-setup-in-minutes">Set-Up (Installation)</a>
     <span> · </span>
@@ -65,7 +65,7 @@
 
 ## 🔗 **Helpful Links**
 
-- [![Streamlit Badge](https://img.shields.io/badge/Live%20Demo-Streamlit-orange?style=for-the-badge&logo=streamlit&logoColor=white)](https://skillmatch-ai.streamlit.app/)  
+- [![Streamlit Badge](https://img.shields.io/badge/Live%20Demo-Streamlit-orange?style=for-the-badge&logo=streamlit&logoColor=white)](https://resumind.streamlit.app/)  
 
 - [![Documentation Badge](https://img.shields.io/badge/Documentation-Request-blue?style=for-the-badge&logo=gmail&logoColor=white)](mailto:het8185@gmail.com?subject=Request%20Documentation%20for%20Smart%20AI%20Resume%20Analyzer&body=Hi%20Het%20Patel,%0D%0AI%20am%20interested%20in%20learning%20more%20about%20your%20project,%20Smart%20AI%20Resume%20Analyzer.%20Here%20are%20my%20details:%0D%0A%0D%0AName:%0D%0AOrganization/College:%0D%0APurpose%20of%20request:%0D%0A%0D%0AThanks!)  
 
@@ -97,7 +97,7 @@
 Get real-time feedback, boost your resume’s impact, and maximize your chances of getting shortlisted—all with a sleek and intuitive interface.  
 
 ## <img src="https://github.com/user-attachments/assets/e5ac1371-6ac4-48b6-b95c-5ef9afaf1353" width="30"> **Live Demo**  
-👨‍💻 Try it Now: [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://skillmatch-ai.streamlit.app/)  
+👨‍💻 Try it Now: [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://resumind.streamlit.app/)  
 
 
 ## <img src="https://github.com/user-attachments/assets/0cefad05-58a9-4aa0-a070-f75a0c9b0353" height="32px">  Tech Stack 
@@ -271,11 +271,11 @@ Join the mission! Here's how:
 <tr>  
 <td align="center"><b>
    
-   [🏠 HOME](https://skillmatch-ai.streamlit.app/)
+   [🏠 HOME](https://resumind.streamlit.app/)
    </b></td>  
 <td align="center"><b>
    
-   [🔍 RESUME ANALYZER(Below Example Analysis of Backend Deeveloper)](https://skillmatch-ai.streamlit.app/)
+   [🔍 RESUME ANALYZER(Below Example Analysis of Backend Deeveloper)](https://resumind.streamlit.app/)
 </b></td>  
 </tr>  
 <tr>  
@@ -285,11 +285,11 @@ Join the mission! Here's how:
 <tr>  
 <td align="center"><b>
    
-   [🔍 RESUME ANALYZER(Score And Recommendations)](https://skillmatch-ai.streamlit.app/)
+   [🔍 RESUME ANALYZER(Score And Recommendations)](https://resumind.streamlit.app/)
    </b></td>  
 <td align="center"><b>
    
-   [🔍 RESUME ANALYZER(According To Roles Recommendations)](https://skillmatch-ai.streamlit.app/)
+   [🔍 RESUME ANALYZER(According To Roles Recommendations)](https://resumind.streamlit.app/)
    </b></td>  
 </tr>  
 <tr>  
@@ -300,11 +300,11 @@ Join the mission! Here's how:
 <tr>  
 <td align="center"><b>
    
-   [🔍 RESUME ANALYZER(According To Roles Course Recommendations)](https://skillmatch-ai.streamlit.app/)
+   [🔍 RESUME ANALYZER(According To Roles Course Recommendations)](https://resumind.streamlit.app/)
    </b></td>  
 <td align="center"><b>
    
-   [🔍 RESUME ANALYZER(Videos Recommendations)](https://skillmatch-ai.streamlit.app/)
+   [🔍 RESUME ANALYZER(Videos Recommendations)](https://resumind.streamlit.app/)
    </b></td>  
 </tr>  
 <tr>  
@@ -318,7 +318,7 @@ Join the mission! Here's how:
 </b></td>  
 <td align="center"><b>
    
-   [📊 DASHBOARD](https://skillmatch-ai.streamlit.app/)
+   [📊 DASHBOARD](https://resumind.streamlit.app/)
 </b></td>  
 </tr>  
 <tr>  
@@ -328,11 +328,11 @@ Join the mission! Here's how:
 <tr>  
 <td align="center"><b>
    
-   [🎯 JOB SEARCH](https://skillmatch-ai.streamlit.app/)
+   [🎯 JOB SEARCH](https://resumind.streamlit.app/)
    </b></td>  
 <td align="center"><b>
    
-   [🎯 JOB SEARCH(📊 Job Market Insights & 🏢 Featured Companies)](https://skillmatch-ai.streamlit.app/)
+   [🎯 JOB SEARCH(📊 Job Market Insights & 🏢 Featured Companies)](https://resumind.streamlit.app/)
    </b></td>  
 </tr>  
 <tr>  
@@ -342,11 +342,11 @@ Join the mission! Here's how:
 <tr>  
 <td align="center"><b>
    
-   [💬 FEEDBACK](https://skillmatch-ai.streamlit.app/)
+   [💬 FEEDBACK](https://resumind.streamlit.app/)
    </b></td>  
 <td align="center"><b>
    
-   [ℹ️ ABOUT](https://skillmatch-ai.streamlit.app/)
+   [ℹ️ ABOUT](https://resumind.streamlit.app/)
    </b></td>  
 </tr>  
 <tr>  
