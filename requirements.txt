@@ -15,5 +15,3 @@ requests
 spacy
 PyPDF2
 python-dotenv
-geopy
-geocoder

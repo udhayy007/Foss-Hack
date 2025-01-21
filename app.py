@@ -2,7 +2,6 @@
 Smart Resume AI - Main Application
 """
 import streamlit as st
-# import pytz
 
 # Set page config at the very beginning
 st.set_page_config(
@@ -41,105 +40,6 @@ from ui_components import (
 from datetime import datetime
 from jobs.job_search import render_job_search
 from PIL import Image
-
-# from sessions.session_handler import init_db, create_and_save_session
-# from datetime import datetime
-
-# Initialize the database
-# init_db()
-
-# Automatically create and store a new session ID
-# if "session_id" not in st.session_state:
-#     session_id, latitude, longitude, city, state, pincode = create_and_save_session()
-#     st.session_state.session_id = session_id
-#     st.session_state.latitude = latitude
-#     st.session_state.longitude = longitude
-#     st.session_state.city = city
-#     st.session_state.state = state
-#     st.session_state.pincode = pincode
-
-# def get_session_info():
-#     """
-#     Retrieve and format session information
-#     """
-#     try:
-#         # Create a new session
-#         session_id, latitude, longitude, city, state, pincode = create_and_save_session()
-        
-#         # Truncate session ID for display
-#         truncated_session_id = session_id[:8]
-        
-#         # Format location information
-#         location_info = f"{city}, {state}" if city != "Unknown" and state != "Unknown" else "Unknown Location"
-        
-#         # Get current date and time in local timezone
-#         local_tz = pytz.timezone('Asia/Kolkata')  # Set to your preferred timezone
-#         current_time_utc = datetime.now(pytz.utc)
-#         current_time_local = current_time_utc.replace(tzinfo=pytz.utc).astimezone(local_tz)
-        
-#         current_date = current_time_local.strftime("%Y-%m-%d")
-#         current_time = current_time_local.strftime("%H:%M:%S")
-        
-#         return {
-#             'session_id': truncated_session_id,
-#             'location_info': location_info,
-#             'current_date': current_date,
-#             'current_time': current_time
-#         }
-#     except Exception as e:
-#         print(f"Error retrieving session info: {e}")
-        
-#         # Fallback to local time if session creation fails
-#         current_time_local = datetime.now()
-#         return {
-#             'session_id': 'Unknown',
-#             'location_info': 'Unknown Location',
-#             'current_date': current_time_local.strftime("%Y-%m-%d"),
-#             'current_time': current_time_local.strftime("%H:%M:%S")
-#         }
-
-# # Retrieve session info
-# session_info = get_session_info()
-
-# # Truncate the session ID to display only few characters
-# truncated_session_id = session_info['session_id']
-
-# # Combine city and state into one line
-# location_info = session_info['location_info']
-
-# # Get the current date and time separately
-# current_date = session_info['current_date']
-# current_time = session_info['current_time']
-
-# # Custom CSS for the card
-# card_css = """
-# <style>
-# .sidebar-card {
-#     background-color: #008db9; /* Blue background */
-#     padding: 20px;
-#     border-radius: 15px;
-#     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-#     color: white;
-#     font-family: 'Arial', sans-serif;
-#     margin-bottom: 20px;
-# }
-# .sidebar-card h4 {
-#     font-size: 18px;
-#     margin-bottom: 15px;
-#     color: #ffffff;
-#     text-align: center;
-#     border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-#     padding-bottom: 10px;
-# }
-# .sidebar-card p {
-#     margin: 10px 0;
-#     font-size: 14px;
-#     color: #ffffff;
-#     text-align: center;
-# }
-# </style>
-# """
-
 
 class ResumeApp:
     def __init__(self):
@@ -1593,20 +1493,6 @@ class ResumeApp:
         """Main application entry point"""
         self.apply_global_styles()
         
-        # Suppress specific warnings
-        import warnings
-        warnings.filterwarnings("ignore", category=SyntaxWarning)
-        warnings.filterwarnings("ignore", message="invalid escape sequence")
-        
-        # Monkey patch the problematic regular expression in the geocoder.uscensus module
-        import geocoder.uscensus
-        def safe_search(address):
-            """Safe version of re.search that uses a raw string"""
-            return re.search(r'^\d+', address, re.UNICODE)
-        
-        # Replace the original search method with our safe version
-        geocoder.uscensus.re = type('SafeRe', (), {'search': safe_search})
-
         # Admin login/logout in sidebar
         with st.sidebar:
             st_lottie(self.load_lottie_url("https://assets5.lottiefiles.com/packages/lf20_xyadoh9h.json"), height=200, key="sidebar_animation")
@@ -1624,20 +1510,6 @@ class ResumeApp:
             st.markdown("<br><br>", unsafe_allow_html=True)
             st.markdown("---")
             
-            # # Add the card to the sidebar <p><strong>📍Location :</strong>🗺️ {location_info}</p>
-            # st.sidebar.markdown(card_css, unsafe_allow_html=True)
-            # st.sidebar.markdown(
-            #     f"""
-            #     <div class="sidebar-card">
-            #         <h4>🌐 Session Info</h4>
-            #         <p><strong>🆔Session ID :</strong>🔒 {truncated_session_id}</p>
-            #         <p><strong>📅Date :</strong>📆 {current_date}</p>
-            #         <p><strong>⏰Time :</strong>🕒 {current_time}</p>
-            #     </div>    
-            #     """,
-            #     unsafe_allow_html=True
-            # )
-
             # Admin Login/Logout section at bottom
             if st.session_state.get('is_admin', False):
                 st.success(f"Logged in as: {st.session_state.get('current_admin_email')}")
