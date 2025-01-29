@@ -44,7 +44,7 @@ FEATURED_COMPANIES = {
         },
         {
             "name": "Netflix",
-            "icon": "fab fa-netflix",
+            "icon": "fas fa-play-circle",
             "color": "#E50914",
             "careers_url": "https://explore.jobs.netflix.net/careers",
             "description": "Streaming media company",
@@ -91,7 +91,7 @@ FEATURED_COMPANIES = {
     "global_corps": [
         {
             "name": "IBM",
-            "icon": "fab fa-ibm",
+            "icon": "fas fa-server",
             "color": "#1F70C1",
             "careers_url": "https://www.ibm.com/careers",
             "description": "Global leader in technology and consulting",
