@@ -160,26 +160,33 @@ class DashboardManager:
         """Get skill distribution data"""
         cursor = self.conn.cursor()
         cursor.execute("""
-            WITH SkillCategories AS (
+            WITH RECURSIVE split(skill, rest) AS (
+                SELECT '', skills || ','
+                FROM resume_data
+                UNION ALL
+                SELECT
+                    substr(rest, 0, instr(rest, ',')),
+                    substr(rest, instr(rest, ',') + 1)
+                FROM split
+                WHERE rest <> ''
+            ),
+            SkillCategories AS (
                 SELECT 
                     CASE 
-                        WHEN LOWER(skill) LIKE '%python%' OR LOWER(skill) LIKE '%java%' OR 
-                             LOWER(skill) LIKE '%javascript%' OR LOWER(skill) LIKE '%c++%' OR 
-                             LOWER(skill) LIKE '%programming%' THEN 'Programming'
-                        WHEN LOWER(skill) LIKE '%sql%' OR LOWER(skill) LIKE '%database%' OR 
-                             LOWER(skill) LIKE '%mongodb%' THEN 'Database'
-                        WHEN LOWER(skill) LIKE '%aws%' OR LOWER(skill) LIKE '%cloud%' OR 
-                             LOWER(skill) LIKE '%azure%' THEN 'Cloud'
-                        WHEN LOWER(skill) LIKE '%agile%' OR LOWER(skill) LIKE '%scrum%' OR 
-                             LOWER(skill) LIKE '%management%' THEN 'Management'
+                        WHEN LOWER(TRIM(skill, '[]" ')) LIKE '%python%' OR LOWER(TRIM(skill, '[]" ')) LIKE '%java%' OR 
+                             LOWER(TRIM(skill, '[]" ')) LIKE '%javascript%' OR LOWER(TRIM(skill, '[]" ')) LIKE '%c++%' OR 
+                             LOWER(TRIM(skill, '[]" ')) LIKE '%programming%' THEN 'Programming'
+                        WHEN LOWER(TRIM(skill, '[]" ')) LIKE '%sql%' OR LOWER(TRIM(skill, '[]" ')) LIKE '%database%' OR 
+                             LOWER(TRIM(skill, '[]" ')) LIKE '%mongodb%' THEN 'Database'
+                        WHEN LOWER(TRIM(skill, '[]" ')) LIKE '%aws%' OR LOWER(TRIM(skill, '[]" ')) LIKE '%cloud%' OR 
+                             LOWER(TRIM(skill, '[]" ')) LIKE '%azure%' THEN 'Cloud'
+                        WHEN LOWER(TRIM(skill, '[]" ')) LIKE '%agile%' OR LOWER(TRIM(skill, '[]" ')) LIKE '%scrum%' OR 
+                             LOWER(TRIM(skill, '[]" ')) LIKE '%management%' THEN 'Management'
                         ELSE 'Other'
                     END as category,
                     COUNT(*) as count
-                FROM (
-                    SELECT TRIM(value) as skill
-                    FROM resume_data
-                    CROSS JOIN json_each('["' || REPLACE(REPLACE(skills, '[', ''), ']', '') || '"]')
-                )
+                FROM split
+                WHERE skill <> ''
                 GROUP BY category
             )
             SELECT category, count
